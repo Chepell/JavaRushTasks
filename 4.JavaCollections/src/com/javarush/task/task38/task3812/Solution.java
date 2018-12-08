@@ -4,8 +4,6 @@ package com.javarush.task.task38.task3812;
 Обработка аннотаций
 */
 
-import java.lang.annotation.Annotation;
-
 /**
  * В классе Solution необходимо реализовать простейшую обработку аннотаций.
  * <p>
@@ -37,18 +35,26 @@ public class Solution {
 	}
 
 	public static boolean printFullyQualifiedNames(Class c) {
-		if (c.isAnnotationPresent(PrepareMyTest.class)) return false;
-
-		Annotation annotation = c.getAnnotation(PrepareMyTest.class);
-
-		return true;
+		boolean result = false;
+		if (c.isAnnotationPresent(PrepareMyTest.class)) {
+			PrepareMyTest annotation = (PrepareMyTest) c.getAnnotation(PrepareMyTest.class);
+			for (String s : annotation.fullyQualifiedNames()) {
+				System.out.println(s);
+			}
+			result = true;
+		}
+		return result;
 	}
 
 	public static boolean printValues(Class c) {
-		if (c.isAnnotationPresent(PrepareMyTest.class)) return false;
-
-		Annotation annotation = c.getAnnotation(PrepareMyTest.class);
-
-		return true;
+		boolean result = false;
+		if (c.isAnnotationPresent(PrepareMyTest.class)) {
+			PrepareMyTest annotation = (PrepareMyTest) c.getAnnotation(PrepareMyTest.class);
+			for (Class<?> aClass : annotation.value()) {
+				System.out.println(aClass.getSimpleName());
+			}
+			result = true;
+		}
+		return result;
 	}
 }
